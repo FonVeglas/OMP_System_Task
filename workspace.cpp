@@ -5,12 +5,13 @@ WorkSpace::WorkSpace(QObject *parent) : QGraphicsScene(parent) {}
 
 WorkSpace::~WorkSpace() {}
 
-void WorkSpace::setTypeFigure(const int type) { typeFigure_ = type; }
+void WorkSpace::setFigureType(const int type) { typeFigure = type; }
+void WorkSpace::setActionType(const int type) { typeAction = type; }
 
-//int WorkSpace::typeFigure() const { return typeFigure_; }
+//int WorkSpace::typeFigure() const { return typeFigure; }
 
-void WorkSpace::printFigure(QGraphicsSceneMouseEvent *event){
-  switch (typeFigure_) {
+void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
+  switch (typeFigure) {
   case TriangleType: {
     Figure *item = new Triangle(event->scenePos());
     item->setPos(event->pos());
@@ -39,8 +40,7 @@ void WorkSpace::printFigure(QGraphicsSceneMouseEvent *event){
   this->addItem(tempItem);
 }
 
-void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-
+void WorkSpace::createFigureEnd(QGraphicsSceneMouseEvent *event){
   tempItem->setEndPoint(event->scenePos());
   std::cout << "Start point x: " << tempItem->startPoint().x() << ' '
             << "start point y: " << tempItem->startPoint().y() << std::endl;
@@ -52,5 +52,30 @@ void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-  printFigure(event);
+
+//  if(typeAction == ActionTypes::AddFigure)
+//    event->accept();
+  if(typeAction == ActionTypes::AddFigure){
+    std::cout << "accepted press" << std::endl;
+    createFigureStart(event);
+  }
+  if(typeAction == ActionTypes::MoveFigure)
+    QGraphicsScene::mousePressEvent(event);
+
 }
+
+void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+
+//  if(typeAction == ActionTypes::AddFigure)
+//    event->accept();
+  if(typeAction == ActionTypes::AddFigure){
+    std::cout << "accepted move" << std::endl;
+    createFigureEnd(event);
+  }
+  if(typeAction == ActionTypes::MoveFigure)
+    QGraphicsScene::mouseMoveEvent(event);
+
+
+}
+
+

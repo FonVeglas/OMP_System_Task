@@ -22,16 +22,10 @@ public:
 private slots:
   void on_actionAdd_triangle_triggered();
   void on_actionAdd_rectangle_triggered();
-  void slotTimer();
-
-
-
   void on_actionAdd_circle_triggered();
-
   void on_actionConnect_the_figures_triggered();
-
   void on_actionMove_a_figure_triggered();
-
+  void slotTimer();
 private:
   void resizeEvent(QResizeEvent * event);
 

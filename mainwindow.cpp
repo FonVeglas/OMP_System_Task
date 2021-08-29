@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   workspace = new WorkSpace();
   ui->graphicsView->setScene(workspace);
-  ui->graphicsView->setRenderHint(QPainter::Antialiasing);                // Устанавливаем сглаживание
-  ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);   // Отключаем скроллбар по вертикали
-  ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по горизонтали
+  ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+  ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
   timer = new QTimer();       // Инициализируем таймер
   connect(timer, &QTimer::timeout, this, &MainWindow::slotTimer);
@@ -33,18 +33,21 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 }
 
 void MainWindow::on_actionAdd_triangle_triggered() {
-  workspace->setTypeFigure(WorkSpace::TriangleType);
+  workspace->setActionType(WorkSpace::AddFigure);
+  workspace->setFigureType(WorkSpace::TriangleType);
 }
 
 void MainWindow::on_actionAdd_rectangle_triggered()
 {
-  workspace->setTypeFigure(WorkSpace::RectangleType);
+  workspace->setActionType(WorkSpace::AddFigure);
+  workspace->setFigureType(WorkSpace::RectangleType);
 }
 
 
 void MainWindow::on_actionAdd_circle_triggered()
 {
-  workspace->setTypeFigure(WorkSpace::EllipseType);
+  workspace->setActionType(WorkSpace::AddFigure);
+  workspace->setFigureType(WorkSpace::EllipseType);
 }
 
 
@@ -56,6 +59,6 @@ void MainWindow::on_actionConnect_the_figures_triggered()
 
 void MainWindow::on_actionMove_a_figure_triggered()
 {
-
+    workspace->setActionType(WorkSpace::MoveFigure);
 }
 

@@ -15,7 +15,8 @@ public:
   ~WorkSpace();
 
   //int typeFigure() const;
-  void setTypeFigure(const int type);
+  void setFigureType(const int type);
+  void setActionType(const int type);
 
   enum FigureTypes {
     TriangleType,
@@ -23,14 +24,22 @@ public:
     EllipseType
   };
 
+  enum ActionTypes {
+    AddFigure,
+    ConnectFigures,
+    MoveFigure
+  };
+
 signals:
   void typeFigureChanged();
 
 private:
   Figure *tempItem;
-  int typeFigure_;
+  int typeFigure;
+  int typeAction;
 
-  void printFigure(QGraphicsSceneMouseEvent *event);
+  void createFigureStart(QGraphicsSceneMouseEvent *event);
+  void createFigureEnd(QGraphicsSceneMouseEvent *event);
 
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
 
 class Figure : public QObject, public QGraphicsItem {
 
@@ -23,8 +24,12 @@ signals:
 private:
   QPointF startPoint_;
   QPointF endPoint_;
+  QPointF shiftMouseCoords;
 
   QRectF boundingRect() const;
+
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 public slots:
   void updateFigure();

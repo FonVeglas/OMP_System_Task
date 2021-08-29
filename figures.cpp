@@ -1,5 +1,6 @@
 #include "figures.h"
 #include <QPainter>
+#include <iostream>
 
 Figure::Figure(QPointF point, QObject *parent)
     : QObject(parent), QGraphicsItem() {
@@ -48,6 +49,23 @@ QPointF Figure::startPoint() const {
 
 QPointF Figure::endPoint() const {
   return endPoint_;
+}
+
+void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
+  //QGraphicsItem::mousePressEvent(event);
+  //if(event->isAccepted())
+  shiftMouseCoords = this->pos() - mapToScene(event->pos());
+  std::cout << "Press" << std::endl;
+
+}
+
+void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+  //QGraphicsItem::mouseMoveEvent(event);
+  //if(event->isAccepted())
+  this->setPos(mapToScene(event->pos() + shiftMouseCoords));
+  std::cout << "Move" << std::endl;
+
 }
 
 //Triangle------------------------------------------------------------------------------
