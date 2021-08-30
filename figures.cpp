@@ -56,16 +56,20 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
   //QGraphicsItem::mousePressEvent(event);
   //if(event->isAccepted())
   shiftMouseCoords = this->pos() - mapToScene(event->pos());
-  std::cout << "Press" << std::endl;
-
+  std::cout << "Figure press" << std::endl;
 }
 
 void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
   //QGraphicsItem::mouseMoveEvent(event);
   //if(event->isAccepted())
-  this->setPos(mapToScene(event->pos() + shiftMouseCoords));
-  std::cout << "Move" << std::endl;
 
+  this->setPos(mapToScene(event->pos() + shiftMouseCoords));
+  std::cout << "Figure move" << std::endl;
+}
+
+void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
+  Q_UNUSED(event);
+  std::cout << "Figure release" << std::endl;
 }
 
 //Triangle------------------------------------------------------------------------------

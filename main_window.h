@@ -1,7 +1,8 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
 
-#include "workspace.h"
+#include "action_type.h"
+#include "work_space.h"
 #include <QMainWindow>
 #include <QTimer>
 
@@ -33,4 +34,4 @@ private:
   WorkSpace *workspace;
   QTimer *timer;
 };
-#endif // MAINWINDOW_H
+#endif // MAIN_WINDOW_H

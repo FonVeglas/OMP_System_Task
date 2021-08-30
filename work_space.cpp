@@ -1,30 +1,30 @@
-#include "workspace.h"
+#include "work_space.h"
 #include <iostream>
 
 WorkSpace::WorkSpace(QObject *parent) : QGraphicsScene(parent) {}
 
-WorkSpace::~WorkSpace() {}
+WorkSpace::~WorkSpace() {
+}
 
 void WorkSpace::setFigureType(const int type) { typeFigure = type; }
-void WorkSpace::setActionType(const int type) { typeAction = type; }
+const int WorkSpace::getFigureType(){return typeFigure;}
 
 //int WorkSpace::typeFigure() const { return typeFigure; }
-
 void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
-  switch (typeFigure) {
-  case TriangleType: {
+  switch (WorkSpace::typeFigure) {
+  case WorkSpace::FigureTypes::TriangleType: {
     Figure *item = new Triangle(event->scenePos());
     item->setPos(event->pos());
     tempItem = item;
     break;
   }
-  case RectangleType: {
+  case WorkSpace::FigureTypes::RectangleType: {
     Figure *item = new Rectangle(event->scenePos());
     item->setPos(event->pos());
     tempItem = item;
     break;
   }
-  case EllipseType: {
+  case WorkSpace::FigureTypes::EllipseType: {
     Figure *item = new Ellipse(event->scenePos());
     item->setPos(event->pos());
     tempItem = item;
@@ -53,29 +53,60 @@ void WorkSpace::createFigureEnd(QGraphicsSceneMouseEvent *event){
 
 void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
-//  if(typeAction == ActionTypes::AddFigure)
-//    event->accept();
-  if(typeAction == ActionTypes::AddFigure){
-    std::cout << "accepted press" << std::endl;
+  //  if(typeAction == ActionTypes::AddFigure)
+  //    event->accept();
+  switch (ActionType::getActionType()) {
+  case ActionType::AddFigure: {
+    std::cout << "Graphics scene press" << std::endl;
     createFigureStart(event);
+    break;
   }
-  if(typeAction == ActionTypes::MoveFigure)
+  case ActionType::MoveFigure: {
     QGraphicsScene::mousePressEvent(event);
-
+    break;
+  }
+  }
+  //  if (ActionType::getActionType() == ActionType::AddFigure) {
+  //    std::cout << "Graphics scene press" << std::endl;
+  //    createFigureStart(event);
+  //  }
+  //  if (ActionType::getActionType() == ActionType::MoveFigure)
+  //    QGraphicsScene::mousePressEvent(event);
 }
 
 void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
-//  if(typeAction == ActionTypes::AddFigure)
-//    event->accept();
-  if(typeAction == ActionTypes::AddFigure){
-    std::cout << "accepted move" << std::endl;
+  //  if(typeAction == ActionTypes::AddFigure)
+  //    event->accept();
+  switch (ActionType::getActionType()) {
+  case ActionType::AddFigure: {
+    std::cout << "Graphics scene move" << std::endl;
     createFigureEnd(event);
+    break;
   }
-  if(typeAction == ActionTypes::MoveFigure)
+  case ActionType::MoveFigure: {
     QGraphicsScene::mouseMoveEvent(event);
-
-
+    break;
+  }
+  }
+//  if (ActionType::getActionType() == ActionType::AddFigure) {
+//    std::cout << "Graphics scene move" << std::endl;
+//    createFigureEnd(event);
+//  }
+//  if (ActionType::getActionType() == ActionType::MoveFigure)
+//    QGraphicsScene::mouseMoveEvent(event);
 }
 
+void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
+  switch (ActionType::getActionType()) {
+  case ActionType::AddFigure: {
+    std::cout << "Graphics scene release" << std::endl;
+    break;
+  }
+  case ActionType::MoveFigure: {
+    QGraphicsScene::mouseReleaseEvent(event);
+    break;
+  }
+  }
+}

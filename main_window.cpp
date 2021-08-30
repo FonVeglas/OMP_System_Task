@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_window.h"
 #include "ui_mainwindow.h"
 
 #include <iostream>
@@ -17,7 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
   timer->start(100);          // Запускаем таймер
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow() {
+  delete timer;
+  delete workspace;
+  delete ui;
+}
 
 void MainWindow::slotTimer()
 {
@@ -33,21 +37,21 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 }
 
 void MainWindow::on_actionAdd_triangle_triggered() {
-  workspace->setActionType(WorkSpace::AddFigure);
-  workspace->setFigureType(WorkSpace::TriangleType);
+  ActionType::setActionType(ActionType::AddFigure);
+  workspace->setFigureType(WorkSpace::FigureTypes::TriangleType);
 }
 
 void MainWindow::on_actionAdd_rectangle_triggered()
 {
-  workspace->setActionType(WorkSpace::AddFigure);
-  workspace->setFigureType(WorkSpace::RectangleType);
+  ActionType::setActionType(ActionType::AddFigure);
+  workspace->setFigureType(WorkSpace::FigureTypes::RectangleType);
 }
 
 
 void MainWindow::on_actionAdd_circle_triggered()
 {
-  workspace->setActionType(WorkSpace::AddFigure);
-  workspace->setFigureType(WorkSpace::EllipseType);
+  ActionType::setActionType(ActionType::AddFigure);
+  workspace->setFigureType(WorkSpace::FigureTypes::EllipseType);
 }
 
 
@@ -59,6 +63,6 @@ void MainWindow::on_actionConnect_the_figures_triggered()
 
 void MainWindow::on_actionMove_a_figure_triggered()
 {
-    workspace->setActionType(WorkSpace::MoveFigure);
+  ActionType::setActionType(ActionType::MoveFigure);
 }
 

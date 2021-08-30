@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include "action_type.h"
 
 class Figure : public QObject, public QGraphicsItem {
 
@@ -30,6 +31,7 @@ private:
 
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 public slots:
   void updateFigure();

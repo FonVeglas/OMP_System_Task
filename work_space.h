@@ -1,6 +1,7 @@
-#ifndef WORKSPACE_H
-#define WORKSPACE_H
+#ifndef WORK_SPACE_H
+#define WORK_SPACE_H
 
+#include "action_type.h"
 #include "figures.h"
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -15,19 +16,12 @@ public:
   ~WorkSpace();
 
   //int typeFigure() const;
+  const int getFigureType();
   void setFigureType(const int type);
-  void setActionType(const int type);
-
   enum FigureTypes {
     TriangleType,
     RectangleType,
     EllipseType
-  };
-
-  enum ActionTypes {
-    AddFigure,
-    ConnectFigures,
-    MoveFigure
   };
 
 signals:
@@ -36,13 +30,14 @@ signals:
 private:
   Figure *tempItem;
   int typeFigure;
-  int typeAction;
 
   void createFigureStart(QGraphicsSceneMouseEvent *event);
   void createFigureEnd(QGraphicsSceneMouseEvent *event);
 
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
 };
 
-#endif // WORKSPACE_H
+#endif // WORK_SPACE_H
