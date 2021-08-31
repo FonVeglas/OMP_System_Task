@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     action_type.cpp \
+    connecting_line.cpp \
     figures.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     action_type.h \
+    connecting_line.h \
     figures.h \
     mainwindow.h \
     work_space.h

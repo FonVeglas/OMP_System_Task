@@ -3,6 +3,7 @@
 
 #include "action_type.h"
 #include "figures.h"
+#include "connecting_line.h"
 #include <QGraphicsItem>
 #include <QLineF>
 #include <QGraphicsScene>
@@ -17,7 +18,7 @@ public:
   explicit WorkSpace(QObject *parent = nullptr);
   ~WorkSpace();
 
-  //int typeFigure() const;
+  void addConnectingLine(ConnectingLine *line);
   const int getFigureType();
   void setFigureType(const int type);
   enum FigureTypes {
@@ -26,12 +27,20 @@ public:
     EllipseType
   };
 
+signals:
+  void movedFigure();
+  void deletedFigure(QGraphicsItem* item);
+
+public slots:
+  void redrawLines();
+  void deleteLines(QGraphicsItem* item);
+
 private:
   Figure *tempItem;
   int typeFigure;
-  QGraphicsLineItem *lineBetween;
   QGraphicsItem *pressedItem;
   QGraphicsItem *releasedItem;
+  QList<ConnectingLine *> connectingLines;
 
   void createFigureStart(QGraphicsSceneMouseEvent *event);
   void createFigureEnd(QGraphicsSceneMouseEvent *event);
