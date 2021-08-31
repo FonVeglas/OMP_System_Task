@@ -51,6 +51,8 @@
    <addaction name="separator"/>
    <addaction name="actionConnect_the_figures"/>
    <addaction name="actionMove_a_figure"/>
+   <addaction name="actionDelete_a_figure"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionAdd_triangle">
    <property name="icon">
@@ -110,6 +112,18 @@
    </property>
    <property name="toolTip">
     <string>Move a figure</string>
+   </property>
+  </action>
+  <action name="actionDelete_a_figure">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete a figure</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete a figure</string>
    </property>
   </action>
  </widget>

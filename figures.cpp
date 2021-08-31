@@ -1,5 +1,4 @@
 #include "figures.h"
-#include <QPainter>
 #include <iostream>
 
 Figure::Figure(QPointF point, QObject *parent)
@@ -23,6 +22,7 @@ QRectF Figure::boundingRect() const
                 (endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y()) - 5,
                 qAbs(endPoint().x() - startPoint().x()) + 10,
                 qAbs(endPoint().y() - startPoint().y()) + 10);
+
 }
 
 void Figure::updateFigure()
@@ -51,25 +51,53 @@ QPointF Figure::endPoint() const {
   return endPoint_;
 }
 
+//Mouse events------------------------------------------------------------------------------
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
-
-  //QGraphicsItem::mousePressEvent(event);
-  //if(event->isAccepted())
-  shiftMouseCoords = this->pos() - mapToScene(event->pos());
-  std::cout << "Figure press" << std::endl;
+  switch (ActionType::getActionType()) {
+  case ActionType::MoveFigure: {
+    m_shiftMouseCoords = this->pos() - mapToScene(event->pos());
+    std::cout << this->boundingRect().center().x() << " "<< this->boundingRect().center().y() << std::endl;
+    std::cout << event->scenePos().x() + m_shiftMouseCoords.x() << " "<< event->scenePos().y() + m_shiftMouseCoords.y() << std::endl;
+    std::cout << "Figure press" << std::endl;
+    break;
+  }
+  case ActionType::ConnectFigures: {
+    break;
+  }
+  }
 }
 
 void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-  //QGraphicsItem::mouseMoveEvent(event);
-  //if(event->isAccepted())
+  switch (ActionType::getActionType()) {
+  case ActionType::MoveFigure: {
+    this->setPos(event->scenePos() + m_shiftMouseCoords);
+    emit pointChanged();
+    //this->setStartPoint(mapToScene(startPoint_) + mapToScene(event->pos() + m_shiftMouseCoords));
+    //this->setEndPoint(mapToScene(endPoint_) + mapToScene(event->pos() + m_shiftMouseCoords));//resize
+//    std::cout << "Figure move" << this->pos().x() << " " << this->pos().y() << std::endl;
+//    std::cout << "Figure move" << this->startPoint_.x() << " " << startPoint_.y() << std::endl;
+    break;
+  }
+  case ActionType::ConnectFigures: {
 
-  this->setPos(mapToScene(event->pos() + shiftMouseCoords));
-  std::cout << "Figure move" << std::endl;
+    break;
+  }
+  }
 }
 
 void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-  Q_UNUSED(event);
-  std::cout << "Figure release" << std::endl;
+  switch (ActionType::getActionType()) {
+  case ActionType::MoveFigure: {
+    Q_UNUSED(event);
+    std::cout << "Figure release" << std::endl;
+
+    break;
+  }
+  case ActionType::ConnectFigures: {
+
+    break;
+  }
+  }
 }
 
 //Triangle------------------------------------------------------------------------------

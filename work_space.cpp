@@ -52,9 +52,6 @@ void WorkSpace::createFigureEnd(QGraphicsSceneMouseEvent *event){
 }
 
 void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-
-  //  if(typeAction == ActionTypes::AddFigure)
-  //    event->accept();
   switch (ActionType::getActionType()) {
   case ActionType::AddFigure: {
     std::cout << "Graphics scene press" << std::endl;
@@ -65,19 +62,24 @@ void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mousePressEvent(event);
     break;
   }
+  case ActionType::ConnectFigures: {
+    lineBetween = new QGraphicsLineItem;
+    pressedItem = itemAt(event->scenePos(), QTransform());
+    break;
   }
-  //  if (ActionType::getActionType() == ActionType::AddFigure) {
-  //    std::cout << "Graphics scene press" << std::endl;
-  //    createFigureStart(event);
-  //  }
-  //  if (ActionType::getActionType() == ActionType::MoveFigure)
-  //    QGraphicsScene::mousePressEvent(event);
+  case ActionType::DeleteFigure: {
+    std::cout << "Graphics scene press" << std::endl;
+    auto itemsToRemove = items(event->scenePos());
+    if (!itemsToRemove.empty()) {
+      QGraphicsItem * itemToRemove = itemsToRemove.at(0);
+      removeItem(itemToRemove);
+      break;
+    }
+  }
+  }
 }
 
 void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-
-  //  if(typeAction == ActionTypes::AddFigure)
-  //    event->accept();
   switch (ActionType::getActionType()) {
   case ActionType::AddFigure: {
     std::cout << "Graphics scene move" << std::endl;
@@ -88,13 +90,15 @@ void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mouseMoveEvent(event);
     break;
   }
+  case ActionType::ConnectFigures: {
+
+    break;
   }
-//  if (ActionType::getActionType() == ActionType::AddFigure) {
-//    std::cout << "Graphics scene move" << std::endl;
-//    createFigureEnd(event);
-//  }
-//  if (ActionType::getActionType() == ActionType::MoveFigure)
-//    QGraphicsScene::mouseMoveEvent(event);
+  case ActionType::DeleteFigure: {
+
+    break;
+  }
+  }
 }
 
 void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
@@ -106,6 +110,19 @@ void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   }
   case ActionType::MoveFigure: {
     QGraphicsScene::mouseReleaseEvent(event);
+    break;
+  }
+  case ActionType::ConnectFigures: {
+    releasedItem = itemAt(event->scenePos(), QTransform());
+    QPointF p1 = pressedItem->sceneBoundingRect().center();
+    QPointF p2 = releasedItem->sceneBoundingRect().center();
+    QLineF line(p1, p2);
+    lineBetween->setLine(line);
+    this->addItem(lineBetween);
+    break;
+  }
+  case ActionType::DeleteFigure: {
+
     break;
   }
   }

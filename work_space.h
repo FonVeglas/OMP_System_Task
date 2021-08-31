@@ -4,7 +4,9 @@
 #include "action_type.h"
 #include "figures.h"
 #include <QGraphicsItem>
+#include <QLineF>
 #include <QGraphicsScene>
+#include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
 
 class WorkSpace : public QGraphicsScene {
@@ -24,12 +26,12 @@ public:
     EllipseType
   };
 
-signals:
-  void typeFigureChanged();
-
 private:
   Figure *tempItem;
   int typeFigure;
+  QGraphicsLineItem *lineBetween;
+  QGraphicsItem *pressedItem;
+  QGraphicsItem *releasedItem;
 
   void createFigureStart(QGraphicsSceneMouseEvent *event);
   void createFigureEnd(QGraphicsSceneMouseEvent *event);

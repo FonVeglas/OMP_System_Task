@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QCursor>
 #include "action_type.h"
 
 class Figure : public QObject, public QGraphicsItem {
@@ -25,7 +27,7 @@ signals:
 private:
   QPointF startPoint_;
   QPointF endPoint_;
-  QPointF shiftMouseCoords;
+  QPointF m_shiftMouseCoords;
 
   QRectF boundingRect() const;
 

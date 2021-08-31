@@ -1,4 +1,4 @@
-#include "main_window.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <iostream>
@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
   ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-  timer = new QTimer();       // Инициализируем таймер
+  timer = new QTimer();
   connect(timer, &QTimer::timeout, this, &MainWindow::slotTimer);
-  timer->start(100);          // Запускаем таймер
+  timer->start(100);
 }
 
 MainWindow::~MainWindow() {
@@ -57,12 +57,18 @@ void MainWindow::on_actionAdd_circle_triggered()
 
 void MainWindow::on_actionConnect_the_figures_triggered()
 {
-
+  ActionType::setActionType(ActionType::ConnectFigures);
 }
 
 
 void MainWindow::on_actionMove_a_figure_triggered()
 {
   ActionType::setActionType(ActionType::MoveFigure);
+}
+
+
+void MainWindow::on_actionDelete_a_figure_triggered()
+{
+  ActionType::setActionType(ActionType::DeleteFigure);
 }
 

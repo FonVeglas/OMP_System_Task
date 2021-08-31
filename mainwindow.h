@@ -1,5 +1,5 @@
-#ifndef MAIN_WINDOW_H
-#define MAIN_WINDOW_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include "action_type.h"
 #include "work_space.h"
@@ -26,7 +26,10 @@ private slots:
   void on_actionAdd_circle_triggered();
   void on_actionConnect_the_figures_triggered();
   void on_actionMove_a_figure_triggered();
+  void on_actionDelete_a_figure_triggered();
   void slotTimer();
+
+
 private:
   void resizeEvent(QResizeEvent * event);
 
@@ -34,4 +37,4 @@ private:
   WorkSpace *workspace;
   QTimer *timer;
 };
-#endif // MAIN_WINDOW_H
+#endif // MAINWINDOW_H

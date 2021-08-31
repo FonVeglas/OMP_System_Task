@@ -12,17 +12,17 @@ SOURCES += \
     action_type.cpp \
     figures.cpp \
     main.cpp \
-    main_window.cpp \
+    mainwindow.cpp \
     work_space.cpp
 
 HEADERS += \
     action_type.h \
     figures.h \
-    main_window.h \
+    mainwindow.h \
     work_space.h
 
 FORMS += \
-    main_window.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

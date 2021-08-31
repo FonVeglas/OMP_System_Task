@@ -10,7 +10,8 @@ public:
   enum ActionTypes {
     AddFigure,
     ConnectFigures,
-    MoveFigure
+    MoveFigure,
+    DeleteFigure,
   };
 };
 
