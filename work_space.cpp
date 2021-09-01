@@ -25,6 +25,7 @@ void WorkSpace::redrawLines() {
     QLineF lineUpdate(line->getFirstItem()->sceneBoundingRect().center(),
                       line->getSecondItem()->sceneBoundingRect().center());
     line->setLine(lineUpdate);
+    this->update(QRectF(0, 0, this->width(), this->height()));
   }
 }
 
@@ -141,7 +142,14 @@ void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   }
   case ActionType::ConnectFigures: {
     releasedItem = itemAt(event->scenePos(), QTransform());
-    if ((pressedItem != nullptr && releasedItem != nullptr) && pressedItem != releasedItem) {
+    if (QGraphicsLineItem *check =
+            dynamic_cast<QGraphicsLineItem *>(pressedItem))
+      break;
+    if (QGraphicsLineItem *check =
+            dynamic_cast<QGraphicsLineItem *>(releasedItem))
+      break;
+    if ((pressedItem != nullptr && releasedItem != nullptr) &&
+        pressedItem != releasedItem) {
       ConnectingLine *lineBetween =
           new ConnectingLine(pressedItem, releasedItem);
       QLineF line(pressedItem->sceneBoundingRect().center(),

@@ -14,7 +14,7 @@ class Figure : public QObject, public QGraphicsItem {
 
 public:
   explicit Figure(QPointF point, QObject *parent = nullptr);
-  ~Figure();
+  virtual ~Figure();
   QPointF startPoint() const;
   QPointF endPoint() const;
   void setStartPoint(const QPointF &point);
