@@ -35,7 +35,7 @@ void WorkSpace::deleteLines(QGraphicsItem* item) {
   }
 }
 
-const int WorkSpace::getFigureType(){return typeFigure;}
+int WorkSpace::getFigureType(){return typeFigure;}
 
 //int WorkSpace::typeFigure() const { return typeFigure; }
 void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){

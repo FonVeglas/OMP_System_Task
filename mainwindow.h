@@ -4,6 +4,7 @@
 #include "action_type.h"
 #include "work_space.h"
 #include <QMainWindow>
+#include <QFileDialog>
 #include <QTimer>
 
 
@@ -27,10 +28,11 @@ private slots:
   void on_actionConnect_the_figures_triggered();
   void on_actionMove_a_figure_triggered();
   void on_actionDelete_a_figure_triggered();
+  void on_actionSave_triggered();
+  void on_actionOpen_triggered();
   void slotTimer();
 
-
-private:
+  private:
   void resizeEvent(QResizeEvent * event);
 
   Ui::MainWindow *ui;

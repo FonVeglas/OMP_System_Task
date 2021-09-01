@@ -6,5 +6,7 @@
         <file>icons/diagonal_line.png</file>
         <file>icons/hand.png</file>
         <file>icons/delete.png</file>
+        <file>icons/floppy_disk.png</file>
+        <file>icons/folder.png</file>
     </qresource>
 </RCC>

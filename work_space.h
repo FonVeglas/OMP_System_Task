@@ -19,7 +19,7 @@ public:
   ~WorkSpace();
 
   void addConnectingLine(ConnectingLine *line);
-  const int getFigureType();
+  int getFigureType();
   void setFigureType(const int type);
   enum FigureTypes {
     TriangleType,

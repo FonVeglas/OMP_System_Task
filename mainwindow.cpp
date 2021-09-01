@@ -25,50 +25,49 @@ MainWindow::~MainWindow() {
 
 void MainWindow::slotTimer()
 {
-
-  timer->stop();
-  workspace->setSceneRect(0,0, ui->graphicsView->width() - 20, ui->graphicsView->height() - 20);
+    timer->stop();
+    workspace->setSceneRect(0, 0, ui->graphicsView->width() - 20, ui->graphicsView->height() - 20);
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-  timer->start(100);
-  QMainWindow::resizeEvent(event);
+    timer->start(100);
+    QMainWindow::resizeEvent(event);
 }
 
-void MainWindow::on_actionAdd_triangle_triggered() {
-  ActionType::setActionType(ActionType::AddFigure);
-  workspace->setFigureType(WorkSpace::FigureTypes::TriangleType);
+void MainWindow::on_actionAdd_triangle_triggered()
+{
+    ActionType::setActionType(ActionType::AddFigure);
+    workspace->setFigureType(WorkSpace::FigureTypes::TriangleType);
 }
 
 void MainWindow::on_actionAdd_rectangle_triggered()
 {
-  ActionType::setActionType(ActionType::AddFigure);
-  workspace->setFigureType(WorkSpace::FigureTypes::RectangleType);
+    ActionType::setActionType(ActionType::AddFigure);
+    workspace->setFigureType(WorkSpace::FigureTypes::RectangleType);
 }
-
 
 void MainWindow::on_actionAdd_circle_triggered()
 {
-  ActionType::setActionType(ActionType::AddFigure);
-  workspace->setFigureType(WorkSpace::FigureTypes::EllipseType);
+    ActionType::setActionType(ActionType::AddFigure);
+    workspace->setFigureType(WorkSpace::FigureTypes::EllipseType);
 }
-
 
 void MainWindow::on_actionConnect_the_figures_triggered()
 {
-  ActionType::setActionType(ActionType::ConnectFigures);
+    ActionType::setActionType(ActionType::ConnectFigures);
 }
-
 
 void MainWindow::on_actionMove_a_figure_triggered()
 {
-  ActionType::setActionType(ActionType::MoveFigure);
+    ActionType::setActionType(ActionType::MoveFigure);
 }
-
 
 void MainWindow::on_actionDelete_a_figure_triggered()
 {
-  ActionType::setActionType(ActionType::DeleteFigure);
+    ActionType::setActionType(ActionType::DeleteFigure);
 }
 
+void MainWindow::on_actionSave_triggered() {}
+
+void MainWindow::on_actionOpen_triggered() {}
