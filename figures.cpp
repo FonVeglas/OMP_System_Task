@@ -14,17 +14,17 @@ Figure::~Figure() {}
 
 QRectF Figure::boundingRect() const {
 
-  return QRectF((endPoint().x() > startPoint().x() ? startPoint().x() : endPoint().x()) - 5,
-                (endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y()) - 5,
-                qAbs(endPoint().x() - startPoint().x()) + 10,
-                qAbs(endPoint().y() - startPoint().y()) + 10);
+  return QRectF((getEndPoint().x() > getStartPoint().x() ? getStartPoint().x() : getEndPoint().x()) - 5,
+                (getEndPoint().y() > getStartPoint().y() ? getStartPoint().y() : getEndPoint().y()) - 5,
+                qAbs(getEndPoint().x() - getStartPoint().x()) + 10,
+                qAbs(getEndPoint().y() - getStartPoint().y()) + 10);
 }
 
 void Figure::updateFigure() {
-  this->update((endPoint().x() > startPoint().x() ? startPoint().x() : endPoint().x()) - 5,
-               (endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y()) - 5,
-               qAbs(endPoint().x() - startPoint().x()) + 10,
-               qAbs(endPoint().y() - startPoint().y()) + 10);
+  this->update((getEndPoint().x() > getStartPoint().x() ? getStartPoint().x() : getEndPoint().x()) - 5,
+               (getEndPoint().y() > getStartPoint().y() ? getStartPoint().y() : getEndPoint().y()) - 5,
+               qAbs(getEndPoint().x() - getStartPoint().x()) + 10,
+               qAbs(getEndPoint().y() - getStartPoint().y()) + 10);
 }
 
 
@@ -38,9 +38,9 @@ void Figure::setEndPoint(const QPointF &point) {
   emit pointChanged();
 }
 
-QPointF Figure::startPoint() const { return startPoint_; }
+QPointF Figure::getStartPoint() const { return startPoint_; }
 
-QPointF Figure::endPoint() const { return endPoint_; }
+QPointF Figure::getEndPoint() const { return endPoint_; }
 
 //Mouse events------------------------------------------------------------------------------
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
@@ -92,12 +92,12 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
   QPolygonF polygon;
 
-  polygon << QPointF(startPoint().x() + (endPoint().x() > startPoint().x() ? + 1 : - 1)*
-                                abs((endPoint().x() - startPoint().x())/2), startPoint().y())
-          << QPointF((endPoint().x() > startPoint().x()) ? endPoint().x() : startPoint().x(),
-                     endPoint().y())
-          << QPointF((endPoint().x() > startPoint().x()) ? startPoint().x() : endPoint().x(),
-                     endPoint().y());
+  polygon << QPointF(getStartPoint().x() + (getEndPoint().x() > getStartPoint().x() ? + 1 : - 1)*
+                                abs((getEndPoint().x() - getStartPoint().x())/2), getStartPoint().y())
+          << QPointF((getEndPoint().x() > getStartPoint().x()) ? getEndPoint().x() : getStartPoint().x(),
+                     getEndPoint().y())
+          << QPointF((getEndPoint().x() > getStartPoint().x()) ? getStartPoint().x() : getEndPoint().x(),
+                     getEndPoint().y());
 
   painter->drawPolygon(polygon);
 
@@ -120,10 +120,10 @@ void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
   painter->setPen(QPen(Qt::black, 2));
 
-  QRectF rect(endPoint().x() > startPoint().x() ? startPoint().x() : endPoint().x(),
-              endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y(),
-              qAbs(endPoint().x() - startPoint().x()),
-              qAbs(endPoint().y() - startPoint().y()));
+  QRectF rect(getEndPoint().x() > getStartPoint().x() ? getStartPoint().x() : getEndPoint().x(),
+              getEndPoint().y() > getStartPoint().y() ? getStartPoint().y() : getEndPoint().y(),
+              qAbs(getEndPoint().x() - getStartPoint().x()),
+              qAbs(getEndPoint().y() - getStartPoint().y()));
 
   painter->drawRect(rect);
 
@@ -147,10 +147,10 @@ void Ellipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
   painter->setPen(QPen(Qt::black, 2));
 
 
-  QRectF rect(endPoint().x() > startPoint().x() ? startPoint().x() : endPoint().x(),
-              endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y(),
-              qAbs(endPoint().x() - startPoint().x()),
-              qAbs(endPoint().y() - startPoint().y()));
+  QRectF rect(getEndPoint().x() > getStartPoint().x() ? getStartPoint().x() : getEndPoint().x(),
+              getEndPoint().y() > getStartPoint().y() ? getStartPoint().y() : getEndPoint().y(),
+              qAbs(getEndPoint().x() - getStartPoint().x()),
+              qAbs(getEndPoint().y() - getStartPoint().y()));
 
   painter->drawEllipse(rect);
 

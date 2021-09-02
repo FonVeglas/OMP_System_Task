@@ -36,8 +36,6 @@ void WorkSpace::deleteLines(QGraphicsItem* item) {
   }
 }
 
-int WorkSpace::getFigureType(){return typeFigure;}
-
 //int WorkSpace::typeFigure() const { return typeFigure; }
 void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
   switch (WorkSpace::typeFigure) {
@@ -71,11 +69,11 @@ void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
 
 void WorkSpace::createFigureEnd(QGraphicsSceneMouseEvent *event){
   tempItem->setEndPoint(event->scenePos());
-  std::cout << "Start point x: " << tempItem->startPoint().x() << ' '
-            << "start point y: " << tempItem->startPoint().y() << std::endl;
+  std::cout << "Start point x: " << tempItem->getStartPoint().x() << ' '
+            << "start point y: " << tempItem->getStartPoint().y() << std::endl;
 
-  std::cout << "End point x: " << tempItem->endPoint().x() << ' '
-            << "end point y: " << tempItem->endPoint().y() << std::endl;
+  std::cout << "End point x: " << tempItem->getEndPoint().x() << ' '
+            << "end point y: " << tempItem->getEndPoint().y() << std::endl;
 
   this->update(QRectF(0, 0, this->width(), this->height()));
 }

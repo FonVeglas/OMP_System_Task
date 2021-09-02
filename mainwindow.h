@@ -4,7 +4,8 @@
 #include "action_type.h"
 #include "work_space.h"
 #include <QMainWindow>
-#include <QFileDialog>
+#include <QSettings>
+#include <QVariant>
 #include <QTimer>
 
 
@@ -20,6 +21,12 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  //Methods for save and load
+  QVariant itemToVariant(QGraphicsItem* item);
+  QGraphicsItem* itemFromVariant(QVariant v);
+  void saveWorkSpace();
+  void restoreState();
+
 
 private slots:
   void on_actionAdd_triangle_triggered();

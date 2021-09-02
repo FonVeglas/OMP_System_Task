@@ -23,6 +23,37 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
+QVariant MainWindow::itemToVariant(QGraphicsItem *item)
+{
+    QVariantHash data;
+    //save all needed attributes
+    data["pos"] = item->pos();
+    data["rotation"] = item->rotation();
+    if (Triangle *triangleItem = dynamic_cast<Triangle *>(item)) {
+        data["type"] = "triangle";
+        data["startPoint"] = triangleItem->getStartPoint();
+        data["endPoint"] = triangleItem->getEndPoint();
+    } else if (Rectangle *rectangleItem = dynamic_cast<Rectangle *>(item)) {
+        data["type"] = "rectangle";
+        data["startPoint"] = rectangleItem->getStartPoint();
+        data["endPoint"] = rectangleItem->getEndPoint();
+    } else if (Ellipse *ellipseItem = dynamic_cast<Ellipse *>(item)) {
+        data["type"] = "ellipse";
+        data["startPoint"] = ellipseItem->getStartPoint();
+        data["endPoint"] = ellipseItem->getEndPoint();
+    } else if (ConnectingLine *lineItem = dynamic_cast<ConnectingLine *>(item)) {
+        //data["type"] = "ellipse";
+        //data["startPoint"] = ellipseItem->getStartPoint();ОНО
+        //data["endPoint"] = ellipseItem->getEndPoint();
+    }
+    return data;
+}
+
+QGraphicsItem *MainWindow::itemFromVariant(QVariant v)
+{
+
+}
+
 void MainWindow::slotTimer()
 {
     timer->stop();
@@ -68,6 +99,8 @@ void MainWindow::on_actionDelete_a_figure_triggered()
     ActionType::setActionType(ActionType::DeleteFigure);
 }
 
-void MainWindow::on_actionSave_triggered() {}
+void MainWindow::on_actionSave_triggered() {
+
+}
 
 void MainWindow::on_actionOpen_triggered() {}
