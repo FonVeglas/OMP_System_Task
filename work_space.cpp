@@ -13,11 +13,14 @@ WorkSpace::~WorkSpace() {
 }
 
 void WorkSpace::addConnectingLine(ConnectingLine *line) {
-
   connectingLines.append(line);
 }
 
-void WorkSpace::setFigureType(const int type) { typeFigure = type; }
+QList<ConnectingLine *> WorkSpace::getConnectingLines() {
+  return connectingLines;
+}
+
+void WorkSpace::setFigureType(const int &type) { typeFigure = type; }
 
 void WorkSpace::redrawLines() {
   foreach (auto line, connectingLines) {
@@ -95,13 +98,10 @@ void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   }
   case ActionType::DeleteFigure: {
     std::cout << "Graphics scene press" << std::endl;
-    auto itemsToRemove = items(event->scenePos());
-    if (!itemsToRemove.empty()) {
-      QGraphicsItem * itemToRemove = itemsToRemove.at(0);
-      emit deletedFigure(itemToRemove);
-      removeItem(itemToRemove);
-      break;
-    }
+    auto itemToRemove = this->itemAt(event->scenePos(), QTransform());
+    emit deletedFigure(itemToRemove);
+    removeItem(itemToRemove);
+    break;
   }
   }
 }

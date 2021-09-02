@@ -4,6 +4,7 @@
 #include "action_type.h"
 #include "work_space.h"
 #include <QMainWindow>
+#include <QFile>
 #include <QSettings>
 #include <QVariant>
 #include <QTimer>
@@ -22,10 +23,8 @@ public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   //Methods for save and load
-  QVariant itemToVariant(QGraphicsItem* item);
-  QGraphicsItem* itemFromVariant(QVariant v);
   void saveWorkSpace();
-  void restoreState();
+  void loadWorkSpace();
 
 
 private slots:
@@ -41,6 +40,8 @@ private slots:
 
   private:
   void resizeEvent(QResizeEvent * event);
+  QVariant itemToVariant(QGraphicsItem* item);
+  QGraphicsItem* itemFromVariant(const QVariant &v);
 
   Ui::MainWindow *ui;
   WorkSpace *workspace;

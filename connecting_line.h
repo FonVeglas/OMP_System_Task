@@ -9,6 +9,8 @@ public:
   ~ConnectingLine();
   QGraphicsItem* getFirstItem();
   QGraphicsItem* getSecondItem();
+  void setFirstItem(QGraphicsItem* firstItem);
+  void setSecondItem(QGraphicsItem* secondItem);
 
 
 private:

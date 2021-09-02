@@ -1,7 +1,7 @@
 #include "figures.h"
 #include <iostream>
 
-Figure::Figure(QPointF point, QObject *parent)
+Figure::Figure(const QPointF &point, QObject *parent)
     : QObject(parent), QGraphicsItem() {
 
   this->setStartPoint(mapFromScene(point));
@@ -58,7 +58,6 @@ void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
   case ActionType::MoveFigure: {
     this->setPos(event->scenePos() + m_shiftMouseCoords);
     std::cout << "Figure move" << std::endl;
-    //QGraphicsItem::mouseMoveEvent(event);
     break;
   }
   }
@@ -75,7 +74,7 @@ void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 //Triangle------------------------------------------------------------------------------
-Triangle::Triangle(QPointF point, QObject *parent)
+Triangle::Triangle(const QPointF &point, QObject *parent)
    : Figure(point,parent)
 {
   Q_UNUSED(point)
@@ -106,7 +105,7 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 }
 
 //Rectangle------------------------------------------------------------------------------
-Rectangle::Rectangle(QPointF point, QObject *parent) : Figure(point, parent) {
+Rectangle::Rectangle(const QPointF &point, QObject *parent) : Figure(point, parent) {
   Q_UNUSED(point)
 }
 
@@ -132,7 +131,7 @@ void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 //Ellipse------------------------------------------------------------------------------
-Ellipse::Ellipse(QPointF point, QObject *parent) : Figure(point, parent) {
+Ellipse::Ellipse(const QPointF &point, QObject *parent) : Figure(point, parent) {
   Q_UNUSED(point)
 }
 

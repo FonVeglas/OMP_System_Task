@@ -19,8 +19,9 @@ public:
   ~WorkSpace();
 
   void addConnectingLine(ConnectingLine *line);
+  QList<ConnectingLine *> getConnectingLines();
   int getFigureType();
-  void setFigureType(const int type);
+  void setFigureType(const int &type);
   enum FigureTypes {
     TriangleType,
     RectangleType,
