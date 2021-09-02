@@ -5,7 +5,6 @@
 #include "work_space.h"
 #include <QMainWindow>
 #include <QFile>
-#include <QSettings>
 #include <QVariant>
 #include <QTimer>
 

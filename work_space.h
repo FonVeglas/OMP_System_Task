@@ -19,6 +19,7 @@ public:
   ~WorkSpace();
 
   void addConnectingLine(ConnectingLine *line);
+  void clearConnectingLine();
   QList<ConnectingLine *> getConnectingLines();
   int getFigureType();
   void setFigureType(const int &type);

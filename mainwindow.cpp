@@ -38,6 +38,7 @@ void MainWindow::saveWorkSpace() {
 
 void MainWindow::loadWorkSpace() {
   workspace->clear();
+  workspace->clearConnectingLine();
   QFile fileIn("file.txt");
   if (fileIn.open(QIODevice::ReadOnly)) {
     QDataStream in(&fileIn);

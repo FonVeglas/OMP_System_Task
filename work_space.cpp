@@ -16,6 +16,8 @@ void WorkSpace::addConnectingLine(ConnectingLine *line) {
   connectingLines.append(line);
 }
 
+void WorkSpace::clearConnectingLine() { connectingLines.clear(); }
+
 QList<ConnectingLine *> WorkSpace::getConnectingLines() {
   return connectingLines;
 }
@@ -97,10 +99,6 @@ void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     break;
   }
   case ActionType::DeleteFigure: {
-    std::cout << "Graphics scene press" << std::endl;
-    auto itemToRemove = this->itemAt(event->scenePos(), QTransform());
-    emit deletedFigure(itemToRemove);
-    removeItem(itemToRemove);
     break;
   }
   }
@@ -160,6 +158,10 @@ void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     break;
   }
   case ActionType::DeleteFigure: {
+    std::cout << "Graphics scene press" << std::endl;
+    auto itemToRemove = this->itemAt(event->scenePos(), QTransform());
+    emit deletedFigure(itemToRemove);
+    removeItem(itemToRemove);
     break;
   }
   }
