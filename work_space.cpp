@@ -6,11 +6,7 @@ WorkSpace::WorkSpace(QObject *parent) : QGraphicsScene(parent) {
   connect(this, &WorkSpace::deletedFigure, this, &WorkSpace::deleteLines);
 }
 
-WorkSpace::~WorkSpace() {
-  delete tempItem;
-  delete pressedItem;
-  delete releasedItem;
-}
+WorkSpace::~WorkSpace() {}
 
 void WorkSpace::addConnectingLine(ConnectingLine *line) {
   connectingLines.append(line);

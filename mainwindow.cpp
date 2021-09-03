@@ -23,12 +23,12 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
-void MainWindow::saveWorkSpace() {
+void MainWindow::saveWorkSpace(const QString &filePath) {
   QVariantList dataList;
   foreach (QGraphicsItem *item, workspace->items()) {
     dataList << itemToVariant(item);
   }
-  QFile fileOut("file.txt");
+  QFile fileOut(filePath);
   if (fileOut.open(QIODevice::WriteOnly)) {
     QDataStream out(&fileOut);
     out << dataList;
@@ -36,10 +36,10 @@ void MainWindow::saveWorkSpace() {
   }
 }
 
-void MainWindow::loadWorkSpace() {
+void MainWindow::loadWorkSpace(const QString &filePath) {
   workspace->clear();
   workspace->clearConnectingLine();
-  QFile fileIn("file.txt");
+  QFile fileIn(filePath);
   if (fileIn.open(QIODevice::ReadOnly)) {
     QDataStream in(&fileIn);
     QVariantList dataList;
@@ -163,6 +163,20 @@ void MainWindow::on_actionDelete_a_figure_triggered()
     ActionType::setActionType(ActionType::DeleteFigure);
 }
 
-void MainWindow::on_actionSave_triggered() { saveWorkSpace(); }
+void MainWindow::on_actionSave_triggered()
+{
+    QString filePath = QFileDialog::getSaveFileName(this,
+                                                    QString("Save File"),
+                                                    QString(),
+                                                    QString("Text files (*.txt)"));
+    saveWorkSpace(filePath);
+}
 
-void MainWindow::on_actionOpen_triggered() { loadWorkSpace(); }
+void MainWindow::on_actionOpen_triggered()
+{
+    QString filePath = QFileDialog::getOpenFileName(this,
+                                                    QString("Open File"),
+                                                    QString(),
+                                                    QString("Text files (*.txt)"));
+    loadWorkSpace(filePath);
+}

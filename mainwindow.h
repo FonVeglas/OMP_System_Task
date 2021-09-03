@@ -5,6 +5,7 @@
 #include "work_space.h"
 #include <QMainWindow>
 #include <QFile>
+#include <QFileDialog>
 #include <QVariant>
 #include <QTimer>
 
@@ -22,8 +23,8 @@ public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   //Methods for save and load
-  void saveWorkSpace();
-  void loadWorkSpace();
+  void saveWorkSpace(const QString &filePath);
+  void loadWorkSpace(const QString &filePath);
 
 
 private slots:
