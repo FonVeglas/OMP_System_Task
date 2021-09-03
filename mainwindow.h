@@ -1,9 +1,12 @@
-#ifndef MAIN_WINDOW_H
-#define MAIN_WINDOW_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include "action_type.h"
 #include "work_space.h"
 #include <QMainWindow>
+#include <QFile>
+#include <QFileDialog>
+#include <QVariant>
 #include <QTimer>
 
 
@@ -19,6 +22,10 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  //Methods for save and load
+  void saveWorkSpace(const QString &filePath);
+  void loadWorkSpace(const QString &filePath);
+
 
 private slots:
   void on_actionAdd_triangle_triggered();
@@ -26,12 +33,18 @@ private slots:
   void on_actionAdd_circle_triggered();
   void on_actionConnect_the_figures_triggered();
   void on_actionMove_a_figure_triggered();
+  void on_actionDelete_a_figure_triggered();
+  void on_actionSave_triggered();
+  void on_actionOpen_triggered();
   void slotTimer();
-private:
+
+  private:
   void resizeEvent(QResizeEvent * event);
+  QVariant itemToVariant(QGraphicsItem* item);
+  QGraphicsItem* itemFromVariant(const QVariant &v);
 
   Ui::MainWindow *ui;
   WorkSpace *workspace;
   QTimer *timer;
 };
-#endif // MAIN_WINDOW_H
+#endif // MAINWINDOW_H

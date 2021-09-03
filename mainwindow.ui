@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>539</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -51,6 +51,10 @@
    <addaction name="separator"/>
    <addaction name="actionConnect_the_figures"/>
    <addaction name="actionMove_a_figure"/>
+   <addaction name="actionDelete_a_figure"/>
+   <addaction name="separator"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionOpen"/>
   </widget>
   <action name="actionAdd_triangle">
    <property name="icon">
@@ -110,6 +114,42 @@
    </property>
    <property name="toolTip">
     <string>Move a figure</string>
+   </property>
+  </action>
+  <action name="actionDelete_a_figure">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete a figure</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete a figure</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/floppy_disk.png</normaloff>:/icons/floppy_disk.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Open</string>
    </property>
   </action>
  </widget>

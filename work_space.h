@@ -3,8 +3,11 @@
 
 #include "action_type.h"
 #include "figures.h"
+#include "connecting_line.h"
 #include <QGraphicsItem>
+#include <QLineF>
 #include <QGraphicsScene>
+#include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
 
 class WorkSpace : public QGraphicsScene {
@@ -15,9 +18,11 @@ public:
   explicit WorkSpace(QObject *parent = nullptr);
   ~WorkSpace();
 
-  //int typeFigure() const;
-  const int getFigureType();
-  void setFigureType(const int type);
+  void addConnectingLine(ConnectingLine *line);
+  void clearConnectingLine();
+  QList<ConnectingLine *> getConnectingLines();
+  int getFigureType();
+  void setFigureType(const int &type);
   enum FigureTypes {
     TriangleType,
     RectangleType,
@@ -25,11 +30,19 @@ public:
   };
 
 signals:
-  void typeFigureChanged();
+  void movedFigure();
+  void deletedFigure(QGraphicsItem* item);
+
+public slots:
+  void redrawLines();
+  void deleteLines(QGraphicsItem* item);
 
 private:
   Figure *tempItem;
   int typeFigure;
+  QGraphicsItem *pressedItem;
+  QGraphicsItem *releasedItem;
+  QList<ConnectingLine *> connectingLines;
 
   void createFigureStart(QGraphicsSceneMouseEvent *event);
   void createFigureEnd(QGraphicsSceneMouseEvent *event);

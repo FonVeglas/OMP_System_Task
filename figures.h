@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 #include "action_type.h"
 
 class Figure : public QObject, public QGraphicsItem {
@@ -12,10 +13,10 @@ class Figure : public QObject, public QGraphicsItem {
   Q_INTERFACES(QGraphicsItem)
 
 public:
-  explicit Figure(QPointF point, QObject *parent = nullptr);
-  ~Figure();
-  QPointF startPoint() const;
-  QPointF endPoint() const;
+  explicit Figure(const QPointF &point, QObject *parent = nullptr);
+  virtual ~Figure();
+  virtual QPointF getStartPoint() const;
+  virtual QPointF getEndPoint() const;
   void setStartPoint(const QPointF &point);
   void setEndPoint(const QPointF &point);
 
@@ -25,7 +26,7 @@ signals:
 private:
   QPointF startPoint_;
   QPointF endPoint_;
-  QPointF shiftMouseCoords;
+  QPointF m_shiftMouseCoords;
 
   QRectF boundingRect() const;
 
@@ -43,7 +44,7 @@ class Triangle : public Figure
   Q_OBJECT
 
 public:
-  explicit Triangle(QPointF point, QObject *parent = nullptr);
+  explicit Triangle(const QPointF &point, QObject *parent = nullptr);
   ~Triangle();
 
 private:
@@ -56,7 +57,7 @@ class Rectangle : public Figure
   Q_OBJECT
 
 public:
-  explicit Rectangle(QPointF point, QObject *parent = 0);
+  explicit Rectangle(const QPointF &point, QObject *parent = 0);
   ~Rectangle();
 
 private:
@@ -69,7 +70,7 @@ class Ellipse : public Figure
   Q_OBJECT
 
 public:
-  explicit Ellipse(QPointF point, QObject *parent = 0);
+  explicit Ellipse(const QPointF &point, QObject *parent = 0);
   ~Ellipse();
 
 private:

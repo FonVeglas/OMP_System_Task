@@ -6,11 +6,12 @@ private:
   static int typeAction;
 public:
   static void setActionType(const int &type);
-  static const int getActionType();
+  static int getActionType();
   enum ActionTypes {
     AddFigure,
     ConnectFigures,
-    MoveFigure
+    MoveFigure,
+    DeleteFigure,
   };
 };
 

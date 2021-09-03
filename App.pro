@@ -10,19 +10,21 @@ CONFIG += c++17
 
 SOURCES += \
     action_type.cpp \
+    connecting_line.cpp \
     figures.cpp \
     main.cpp \
-    main_window.cpp \
+    mainwindow.cpp \
     work_space.cpp
 
 HEADERS += \
     action_type.h \
+    connecting_line.h \
     figures.h \
-    main_window.h \
+    mainwindow.h \
     work_space.h
 
 FORMS += \
-    main_window.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
