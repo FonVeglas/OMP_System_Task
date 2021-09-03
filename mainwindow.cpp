@@ -52,12 +52,24 @@ void MainWindow::loadWorkSpace(const QString &filePath) {
         workspace->addConnectingLine(line);
     }
   }
-  foreach(ConnectingLine *connectingLine, workspace->getConnectingLines()){
+  foreach (auto connectingLine, workspace->getConnectingLines()) {
     QLineF currentLine = connectingLine->line();
     QPointF startPoint = currentLine.p1();
     QPointF endPoint = currentLine.p2();
-    connectingLine->setFirstItem(workspace->itemAt(startPoint, QTransform()));
-    connectingLine->setSecondItem(workspace->itemAt(endPoint, QTransform()));
+    auto list1 = workspace->items(startPoint);
+    foreach (auto firstPointItem, list1) {
+      if (ConnectingLine *line = dynamic_cast<ConnectingLine *>(firstPointItem))
+        continue;
+      connectingLine->setFirstItem(firstPointItem);
+      break;
+    }
+    foreach (auto secondPointItem, workspace->items(endPoint)) {
+      if (ConnectingLine *line =
+              dynamic_cast<ConnectingLine *>(secondPointItem))
+        continue;
+      connectingLine->setSecondItem(secondPointItem);
+      break;
+    }
   }
 }
 
