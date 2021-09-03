@@ -37,7 +37,6 @@ void WorkSpace::deleteLines(QGraphicsItem* item) {
   }
 }
 
-//int WorkSpace::typeFigure() const { return typeFigure; }
 void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
   switch (WorkSpace::typeFigure) {
   case WorkSpace::FigureTypes::TriangleType: {
