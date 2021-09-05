@@ -6,7 +6,7 @@ Figure::Figure(const QPointF &point, QObject *parent)
 
   this->setStartPoint(mapFromScene(point));
   this->setEndPoint(mapFromScene(point));
-
+  this->id_ = idCounter++;
   connect(this, &Figure::pointChanged, this, &Figure::updateFigure);
 }
 
@@ -38,6 +38,12 @@ void Figure::setEndPoint(const QPointF &point) {
   emit pointChanged();
 }
 
+unsigned int Figure::idCounter = 0;
+
+unsigned int Figure::getId() const { return id_; }
+
+void Figure::setId(const unsigned int &id) { id_ = id; }
+
 QPointF Figure::getStartPoint() const { return startPoint_; }
 
 QPointF Figure::getEndPoint() const { return endPoint_; }
@@ -47,7 +53,6 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
   switch (ActionType::getActionType()) {
   case ActionType::MoveFigure: {
     m_shiftMouseCoords = this->pos() - mapToScene(event->pos());
-    std::cout << "Figure press" << std::endl;
     break;
   }
   }
@@ -57,7 +62,6 @@ void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
   switch (ActionType::getActionType()) {
   case ActionType::MoveFigure: {
     this->setPos(event->scenePos() + m_shiftMouseCoords);
-    std::cout << "Figure move" << std::endl;
     break;
   }
   }
@@ -67,7 +71,6 @@ void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   switch (ActionType::getActionType()) {
   case ActionType::MoveFigure: {
     Q_UNUSED(event);
-    std::cout << "Figure release" << std::endl;
     break;
   }
   }

@@ -8,13 +8,38 @@ WorkSpace::WorkSpace(QObject *parent) : QGraphicsScene(parent) {
 
 WorkSpace::~WorkSpace() {}
 
+void WorkSpace::connectFigures()
+{
+  //Проверка на то, что pressedItem и releasedItem не являются соединительными линиями
+  if (QGraphicsLineItem *check =
+          dynamic_cast<QGraphicsLineItem *>(pressedItem))
+    return;
+  if (QGraphicsLineItem *check =
+          dynamic_cast<QGraphicsLineItem *>(releasedItem))
+    return;
+  if ((pressedItem != nullptr && releasedItem != nullptr) &&
+      pressedItem != releasedItem) {
+    ConnectingLine *lineBetween =
+        new ConnectingLine(pressedItem, releasedItem);
+    //Привязка объектов к соеденительной линии посредсвтом id
+    lineBetween->setFirstItemId(dynamic_cast<Figure*>(pressedItem)->getId());
+    lineBetween->setSecondItemId(dynamic_cast<Figure*>(releasedItem)->getId());
+    QLineF line(pressedItem->sceneBoundingRect().center(),
+                releasedItem->sceneBoundingRect().center());
+    lineBetween->setPen(QPen(Qt::black, 2));
+    lineBetween->setLine(line);
+    this->addItem(lineBetween);
+    this->addConnectingLine(lineBetween);
+  }
+}
+
 void WorkSpace::addConnectingLine(ConnectingLine *line) {
   connectingLines.append(line);
 }
 
-void WorkSpace::clearConnectingLine() { connectingLines.clear(); }
+void WorkSpace::clearConnectingLines() { connectingLines.clear(); }
 
-QList<ConnectingLine *> WorkSpace::getConnectingLines() {
+QList<ConnectingLine *> WorkSpace::getConnectingLines() const {
   return connectingLines;
 }
 
@@ -34,6 +59,7 @@ void WorkSpace::deleteLines(QGraphicsItem* item) {
   foreach (auto line, connectingLines) {
     if(line->getFirstItem() == item || line->getSecondItem() == item)
       removeItem(line);
+    this->update(QRectF(0, 0, this->width(), this->height()));
   }
 }
 
@@ -69,19 +95,12 @@ void WorkSpace::createFigureStart(QGraphicsSceneMouseEvent *event){
 
 void WorkSpace::createFigureEnd(QGraphicsSceneMouseEvent *event){
   tempItem->setEndPoint(event->scenePos());
-  std::cout << "Start point x: " << tempItem->getStartPoint().x() << ' '
-            << "start point y: " << tempItem->getStartPoint().y() << std::endl;
-
-  std::cout << "End point x: " << tempItem->getEndPoint().x() << ' '
-            << "end point y: " << tempItem->getEndPoint().y() << std::endl;
-
   this->update(QRectF(0, 0, this->width(), this->height()));
 }
 
 void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   switch (ActionType::getActionType()) {
   case ActionType::AddFigure: {
-    std::cout << "Graphics scene press" << std::endl;
     createFigureStart(event);
     break;
   }
@@ -102,7 +121,6 @@ void WorkSpace::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void WorkSpace::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
   switch (ActionType::getActionType()) {
   case ActionType::AddFigure: {
-    std::cout << "Graphics scene move" << std::endl;
     createFigureEnd(event);
     break;
   }
@@ -124,7 +142,6 @@ void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
   switch (ActionType::getActionType()) {
   case ActionType::AddFigure: {
-    std::cout << "Graphics scene release" << std::endl;
     break;
   }
   case ActionType::MoveFigure: {
@@ -133,27 +150,10 @@ void WorkSpace::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   }
   case ActionType::ConnectFigures: {
     releasedItem = itemAt(event->scenePos(), QTransform());
-    if (QGraphicsLineItem *check =
-            dynamic_cast<QGraphicsLineItem *>(pressedItem))
-      break;
-    if (QGraphicsLineItem *check =
-            dynamic_cast<QGraphicsLineItem *>(releasedItem))
-      break;
-    if ((pressedItem != nullptr && releasedItem != nullptr) &&
-        pressedItem != releasedItem) {
-      ConnectingLine *lineBetween =
-          new ConnectingLine(pressedItem, releasedItem);
-      QLineF line(pressedItem->sceneBoundingRect().center(),
-                  releasedItem->sceneBoundingRect().center());
-      lineBetween->setPen(QPen(Qt::black, 2));
-      lineBetween->setLine(line);
-      this->addItem(lineBetween);
-      this->addConnectingLine(lineBetween);
-    }
+    connectFigures();
     break;
   }
   case ActionType::DeleteFigure: {
-    std::cout << "Graphics scene press" << std::endl;
     auto itemToRemove = this->itemAt(event->scenePos(), QTransform());
     emit deletedFigure(itemToRemove);
     removeItem(itemToRemove);

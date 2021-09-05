@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
-  //Methods for save and load
+  //Методы сохранения и загрузки рабочей области
   void saveWorkSpace(const QString &filePath);
   void loadWorkSpace(const QString &filePath);
 

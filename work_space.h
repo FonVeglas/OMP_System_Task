@@ -18,10 +18,10 @@ public:
   explicit WorkSpace(QObject *parent = nullptr);
   ~WorkSpace();
 
+  void connectFigures();
   void addConnectingLine(ConnectingLine *line);
-  void clearConnectingLine();
-  QList<ConnectingLine *> getConnectingLines();
-  int getFigureType();
+  void clearConnectingLines();
+  QList<ConnectingLine *> getConnectingLines() const;
   void setFigureType(const int &type);
   enum FigureTypes {
     TriangleType,

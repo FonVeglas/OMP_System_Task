@@ -1,5 +1,6 @@
 #ifndef ACTION_TYPE_H
 #define ACTION_TYPE_H
+//Класс, который определяет тип выполняемого действия в зависимости от нажатой кнопки
 class ActionType{
 private:
   ActionType(){}

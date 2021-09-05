@@ -7,6 +7,7 @@
 #include <QPainter>
 #include "action_type.h"
 
+//Родительынй класс всех фигур
 class Figure : public QObject, public QGraphicsItem {
 
   Q_OBJECT
@@ -19,11 +20,16 @@ public:
   virtual QPointF getEndPoint() const;
   void setStartPoint(const QPointF &point);
   void setEndPoint(const QPointF &point);
+  unsigned int getId() const;
+  void setId(const unsigned int &id);
+
+  static unsigned int idCounter;
 
 signals:
   void pointChanged();
 
 private:
+  unsigned int id_;
   QPointF startPoint_;
   QPointF endPoint_;
   QPointF m_shiftMouseCoords;
