@@ -30,6 +30,7 @@ void WorkSpace::connectFigures()
     lineBetween->setLine(line);
     this->addItem(lineBetween);
     this->addConnectingLine(lineBetween);
+    this->update(QRectF(0, 0, this->width(), this->height()));
   }
 }
 
